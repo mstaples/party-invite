@@ -164,6 +164,5 @@
 					<li><a href="{{ route('rsvp') }}" class="button">R S V P</a></li>
 				</ul>
 			</footer>
-
 		</section>
 @endsection

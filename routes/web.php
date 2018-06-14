@@ -30,5 +30,6 @@ Route::get('/photos', function () {
 })->name('photos')->middleware('auth');
 
 Route::get('/rsvp', 'HomeController@getRSVP')->name('rsvp')->middleware('auth');
+Route::get('/logout', 'Auth\LoginController@getLogout')->middleware('auth');
 
 Route::post('/rsvp', 'HomeController@postRSVP')->middleware('auth');
