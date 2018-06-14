@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('index');
-})->name('index');
+})->name('index')->middleware('auth');
 
 Route::get('index', function () {
     return view('index');
