@@ -13,23 +13,23 @@
 
 Route::get('/', function () {
     return view('index');
-})->name('index')->middleware('auth');
+})->name('index');
 
 Route::get('index', function () {
     return view('index');
-})->name('index')->middleware('auth');
+})->name('index');
 
 Auth::routes();
 
 Route::get('/home', function () {
     return view('index');
-})->name('index')->middleware('auth');
+})->name('index');
 
 Route::get('/photos', function () {
     return view('photos');
-})->name('photos')->middleware('auth');
+})->name('photos');
 
 Route::get('/rsvp', 'HomeController@getRSVP')->name('rsvp')->middleware('auth');
-Route::get('/logout', 'Auth\LoginController@getLogout')->middleware('auth');
+Route::get('/logout', 'Auth\LoginController@getLogout');
 
 Route::post('/rsvp', 'HomeController@postRSVP')->middleware('auth');
