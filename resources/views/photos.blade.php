@@ -38,7 +38,7 @@
 			</header>
 
 			<!-- Three -->
-			<section class="wrapper style3 container special">
+			<section class="wrapper style3 container special" id="photos">
 
 				<header class="major">
 					<h2>check out some <strong>sweet pics</strong></h2>
@@ -124,7 +124,7 @@
 
 						<section>
 							<a href="#" class="image featured"><img src="images/photos/house_square_dining.jpg" alt="" /></a>
-							<p>The kitchen / dining / living areas look to all be connected, which should be lovely for shared meals and chats times.</p>
+							<p>The kitchen / dining / living areas look to all be connected, which should be lovely for shared meals and chats.</p>
 						</section>
 
 					</div>

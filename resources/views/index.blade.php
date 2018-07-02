@@ -143,7 +143,7 @@
 
 				<footer class="major">
 					<ul class="buttons">
-						<li><a href="{{ route('photos') }}" class="button">See More</a></li>
+						<li><a href="{{ route('photos').'#photos' }}" class="button">See More</a></li>
 					</ul>
 				</footer>
 
