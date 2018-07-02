@@ -30,8 +30,9 @@ class User extends Authenticatable
 
     public function sendPasswordResetNotification($token)
     {
-
-        if ((time() - strtotime($this->createdOn)) / 60 < 15) {
+        $createdAt = $this->created_at->timestamp;
+        $diff = (time() - $createdAt) / 60;
+        if ($diff < 15) {
             $this->notify(new EmailNewGuest($token));
         } else {
             parent::sendPasswordResetNotification($token);
