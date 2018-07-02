@@ -9,11 +9,6 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    public $name;
-    public $rsvp;
-    public $arriving;
-    public $departing;
-    public $partner;
     /**
      * The attributes that are mass assignable.
      *
