@@ -161,7 +161,7 @@
 			<footer>
 				<ul class="buttons">
 					<li><a href="https://www.paypal.me/deadlugosi" class="button special" target="_blank">Contribute $$$</a></li>
-					<li><a href="{{ route('rsvp') }}" class="button">R S V P</a></li>
+					<li><a href="{{ route('rsvp').'#rsvp' }}" class="button">R S V P</a></li>
 				</ul>
 			</footer>
 		</section>
