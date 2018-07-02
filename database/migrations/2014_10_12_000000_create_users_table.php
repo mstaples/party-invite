@@ -20,8 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('rsvp')->nullable();
             $table->boolean('partner')->default(false);
-            $table->dateTime('arriving')->nullable();
-            $table->dateTime('departing')->nullable();
+            $table->date('arriving')->default("2018-10-26");
+            $table->date('departing')->default("2018-10-29");
             $table->rememberToken();
             $table->timestamps();
         });

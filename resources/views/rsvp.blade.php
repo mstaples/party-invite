@@ -66,7 +66,7 @@
 						{!! Form::label('arriving', 'When will you arrive?') !!}
 					</div>
 					<div class="4u 12u(narrower)">
-						{!! Form::date('arriving', $user->arriving) !!}
+						{!! Form::date('arriving', new DateTime($user->arriving)) !!}
 					</div>
 				</div>
 				<div class="row">
@@ -74,7 +74,7 @@
 						{!! Form::label('departing', 'When will you depart?') !!}
 					</div>
 					<div class="4u 12u(narrower)">
-						{!! Form::date('departing', $user->departing) !!}
+						{!! Form::date('departing', new DateTime($user->departing)) !!}
 					</div>
 				</div>
 				<br/>
