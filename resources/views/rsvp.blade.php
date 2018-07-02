@@ -41,7 +41,7 @@
 			<section class="wrapper style3 container special">
 
 				<header class="major">
-					<h2><strong>R S V P</strong></h2>
+					<h2 id="rsvp"><strong>R S V P</strong></h2>
 				</header>
 				<p>Please indicate if you're coming out, if you're bringing a significant other who I totally already know and think is awesome, and when you plan on arriving / departing. You can change these values later if your plans change.</p>
 				{!! Form::open(['route' => 'rsvp']) !!}

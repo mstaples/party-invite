@@ -22,7 +22,7 @@
 					in <a href="http://html5up.net">Vancouver, BC</a>.</p>
 				<footer>
 					<ul class="buttons vertical">
-						<li><a href="{{ route('rsvp') }}" class="button fit scrolly">R S V P</a></li>
+						<li><a href="{{ route('rsvp').'#rsvp' }}" class="button fit scrolly">R S V P</a></li>
 					</ul>
 				</footer>
 
@@ -43,7 +43,7 @@
 					If you can't make it, that's <strong>ok</strong> too.
 					There will be future invitations, and I will be delighted whenever we manage to find time to coexist.
 					<br />
-					Please, <a href="{{ route('index') }}">RSVP</a> and optionally throw down some <a href="https://www.paypal.me/deadlugosi" target="_blank">cash for the festivities</a> if it's not a hardship. I hope to see you there!</p>
+					Please, <a href="{{ route('rsvp').'#rsvp' }}">RSVP</a> and optionally throw down some <a href="https://www.paypal.me/deadlugosi" target="_blank">cash for the festivities</a> if it's not a hardship. I hope to see you there!</p>
 			</header>
 
 			<!-- Two -->
