@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\EmailNewGuest;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -26,4 +27,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function sendPasswordResetNotification($token)
+    {
+
+        if ((now() - strtotime($this->createdOn)) / 60 < 15) {
+            $this->notify(new EmailNewGuest($token));
+        } else {
+            parent::sendPasswordResetNotification($token);
+        }
+    }
 }
