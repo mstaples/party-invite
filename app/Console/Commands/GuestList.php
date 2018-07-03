@@ -59,7 +59,7 @@ class GuestList extends Command
         if (empty($users)) {
             $this->line("No guests have visited.");
         } else {
-            $this->line(count($users) . " guests have visited.");
+            $this->line(count($users) . " guests have been invited.");
 
             $users = User::where('rsvp', true)->orderBy('arriving', 'ASC')->get();
             $count = count($users);

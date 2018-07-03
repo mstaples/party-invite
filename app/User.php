@@ -28,14 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function sendPasswordResetNotification($token)
+    public function sendInvitation($token)
     {
-        $createdAt = $this->created_at->timestamp;
-        $diff = (time() - $createdAt) / 60;
-        if ($diff < 15) {
-            $this->notify(new EmailNewGuest($token));
-        } else {
-            parent::sendPasswordResetNotification($token);
-        }
+        $this->notify(new EmailNewGuest($token));
     }
 }
