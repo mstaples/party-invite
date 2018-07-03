@@ -55,11 +55,11 @@ class GuestList extends Command
      */
     public function handle()
     {
-        $users = User::all();
+        $users = User::where('rsvp', '!=', NULL)->get();
         if (empty($users)) {
             $this->line("No guests have visited.");
         } else {
-            $this->line(count($users) . " guests have been invited.");
+            $this->line(count($users) . " guests have responded.");
 
             $users = User::where('rsvp', true)->orderBy('arriving', 'ASC')->get();
             $count = count($users);
