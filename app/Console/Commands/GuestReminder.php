@@ -66,6 +66,7 @@ class GuestReminder extends Command
             $this->line(count($users) . " guests have not responded.");
             foreach ($users as $user)
             {
+                $this->line("Sending a reminder invite to ". $user->name);
                 $user->sendInvitation(
                     $this->tokens->create($user)
                 );
