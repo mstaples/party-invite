@@ -27,10 +27,10 @@ class HomeController extends Controller
     public function postRSVP(Request $request)
     {
         $user = Auth::user();
-        $user->rsvp = $request->rsvp;
+        $user->rsvp = $request->rsvp === null ? false : $request->rsvp;
         $user->arriving = $request->arriving;
         $user->departing = $request->departing;
-        $user->partner = $request->partner;
+        $user->partner = $request->partner === null ? false : $request->partner;
         $user->save();
 
         return view('rsvp')->with('user', $user);
