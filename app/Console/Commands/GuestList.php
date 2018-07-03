@@ -59,17 +59,10 @@ class GuestList extends Command
         if (empty($users)) {
             $this->line("No guests have visited.");
         } else {
+            $this->line(count($users) . " guests have visited.");
+
+            $users = User::where('rsvp', true)->orderBy('arriving', 'ASC')->get();
             $count = count($users);
-            if ($count > 1) {
-                $this->line(count($users) . " guests have visited.");
-
-                // only users who are coming
-                $users = array_filter($users, "rsvp");
-
-                // sort by arrival date
-                usort($users, 'sortByArrivalDate');
-            }
-
             $plusOnes = 0;
             foreach ($users as $user)
             {
