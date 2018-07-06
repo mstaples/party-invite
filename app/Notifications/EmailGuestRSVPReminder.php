@@ -5,14 +5,8 @@ namespace App\Notifications;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class EmailNewGuest extends Notification
+class EmailGuestRSVPReminder extends Notification
 {
-    /**
-     * The password reset token.
-     *
-     * @var string
-     */
-    public $token;
 
     /**
      * The callback that should be used to build the mail message.
@@ -24,12 +18,10 @@ class EmailNewGuest extends Notification
     /**
      * Create a notification instance.
      *
-     * @param  string  $token
      * @return void
      */
-    public function __construct($token)
+    public function __construct()
     {
-        $this->token = $token;
     }
 
     /**
@@ -52,15 +44,15 @@ class EmailNewGuest extends Notification
     public function toMail($notifiable)
     {
         if (static::$toMailCallback) {
-            return call_user_func(static::$toMailCallback, $notifiable, $this->token);
+            return call_user_func(static::$toMailCallback, $notifiable, NULL);
         }
 
         return (new MailMessage)
             ->subject('Margaret wants you at her party!')
             ->greeting("Greetings Precious Friend Human!")
-            ->line('You are receiving this email because I would like you to visit the Party Invite website I created.')
-            ->action('Set Your Password', url(config('app.url').route('password.reset', $this->token, false)))
-            ->line('Please, follow the link to set your password. Then read all about the party plans and let me know when/if I will have the pleasure of your company <3');
+            ->line('You are receiving this email because you have not yet provided an RSVP to Oldfest 2018.')
+            ->action('RSVP', url(config('app.url').route('rsvp')))
+            ->line('Please, follow the link to RSVP. If you want to change that info later, you may update it as often as needs be <3');
     }
 
     /**

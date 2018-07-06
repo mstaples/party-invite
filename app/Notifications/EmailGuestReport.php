@@ -5,14 +5,7 @@ namespace App\Notifications;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class EmailNewGuest extends Notification
-{
-    /**
-     * The password reset token.
-     *
-     * @var string
-     */
-    public $token;
+class EmailGuestReport extends Notification{
 
     /**
      * The callback that should be used to build the mail message.
@@ -21,15 +14,16 @@ class EmailNewGuest extends Notification
      */
     public static $toMailCallback;
 
+    private $report;
+
     /**
      * Create a notification instance.
      *
-     * @param  string  $token
      * @return void
      */
-    public function __construct($token)
+    public function __construct(array $report)
     {
-        $this->token = $token;
+        $this->report = $report;
     }
 
     /**
@@ -52,15 +46,23 @@ class EmailNewGuest extends Notification
     public function toMail($notifiable)
     {
         if (static::$toMailCallback) {
-            return call_user_func(static::$toMailCallback, $notifiable, $this->token);
+            return call_user_func(static::$toMailCallback, $notifiable, NULL);
         }
 
-        return (new MailMessage)
-            ->subject('Margaret wants you at her party!')
-            ->greeting("Greetings Precious Friend Human!")
-            ->line('You are receiving this email because I would like you to visit the Party Invite website I created.')
-            ->action('Set Your Password', url(config('app.url').route('password.reset', $this->token, false)))
-            ->line('Please, follow the link to set your password. Then read all about the party plans and let me know when/if I will have the pleasure of your company <3');
+        $mailMessage = (new MailMessage)
+            ->from('party-bot@cyborg.love','Party Bot')
+            ->subject('Oldfest 2018 Guest Report')
+            ->greeting("Greetings Party Throwing Human!");
+
+        foreach ($this->report as $title => $lines)
+        {
+            $mailMessage->line($title);
+            foreach ($lines as $line) {
+                $mailMessage->line($line);
+            }
+        }
+
+        return $mailMessage;
     }
 
     /**

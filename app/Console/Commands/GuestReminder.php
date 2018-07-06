@@ -2,12 +2,14 @@
 
 namespace App\Console\Commands;
 
+use App\Traits\GuestsTrait;
 use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Password;
 
 class GuestReminder extends Command
 {
+    use GuestsTrait;
     /**
      * The name and signature of the console command.
      *
@@ -38,20 +40,6 @@ class GuestReminder extends Command
         $this->tokens = Password::getRepository();
     }
 
-    public function createNewUser($name, $email)
-    {
-        $this->line("Create new user $name: $email");
-        $user = new User();
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = hash('md2', $email);
-        $user->save();
-
-        $user->sendInvitation(
-            $this->tokens->create($user)
-        );
-    }
-
     /**
      * Execute the console command.
      *
@@ -59,17 +47,17 @@ class GuestReminder extends Command
      */
     public function handle()
     {
-        $users = User::where(['rsvp' => NULL])->get();
-        if (empty($users)) {
-            $this->line("All guests have responded.");
-        } else {
-            $this->line(count($users) . " guests have not responded.");
-            foreach ($users as $user)
-            {
-                $this->line("Sending a reminder invite to ". $user->name);
-                $user->sendInvitation(
-                    $this->tokens->create($user)
-                );
+        $report['Resent Guest Invites'] = $this->resendGuestsInvites($this->tokens);
+        $report['Reminded Guests to RSVP'] = $this->remindGuestsToRSVP();
+        $report['Current Guest List'] = $this->currentGuestList();
+
+        $user = User::where('email', '=', config('mail.admin_email'))->first();
+        $user->sendGuestReport($report);
+
+        foreach ($report as $title=>$lines) {
+            $this->line($title);
+            foreach ($lines as $line) {
+                $this->line($line);
             }
         }
     }

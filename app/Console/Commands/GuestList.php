@@ -2,11 +2,13 @@
 
 namespace App\Console\Commands;
 
-use App\User;
+use App\Traits\GuestsTrait;
 use Illuminate\Console\Command;
 
 class GuestList extends Command
 {
+    use GuestsTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -22,30 +24,11 @@ class GuestList extends Command
     protected $description = 'Show RSVPs';
 
     /**
-     * The password token repository.
-     *
-     * @var \Illuminate\Auth\Passwords\TokenRepositoryInterface
-     */
-    protected $tokens;
-
-    /**
      * Create a new command instance.
      */
     public function __construct()
     {
         parent::__construct();
-    }
-
-    public function rsvp($user)
-    {
-        return $user->rsvp;
-    }
-
-    function sortByArrivalDate(User $a, User $b)
-    {
-        $t1 = strtotime($a->arriving);
-        $t2 = strtotime($b->arriving);
-        return $t1 - $t2;
     }
 
     /**
@@ -55,28 +38,9 @@ class GuestList extends Command
      */
     public function handle()
     {
-        $users = User::where('rsvp', '!=', NULL)->get();
-        if (empty($users)) {
-            $this->line("No guests have visited.");
-        } else {
-            $this->line(count($users) . " guests have responded.");
-
-            $users = User::where('rsvp', true)->orderBy('arriving', 'ASC')->get();
-            $count = count($users);
-            $plusOnes = 0;
-            foreach ($users as $user)
-            {
-                $line = $user->name;
-                if ($user->partner) {
-                    $line .= " + 1";
-                    $plusOnes++;
-                }
-                $line .= " " . $user->arriving . " - " . $user->departing;
-                $this->line($line);
-            }
-
-            $this->line($count + $plusOnes . " guests plan to attend.");
-
+        $list = $this->currentGuestList();
+        foreach ($list as $line) {
+            $this->line($line);
         }
     }
 }

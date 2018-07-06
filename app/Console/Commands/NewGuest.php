@@ -2,12 +2,14 @@
 
 namespace App\Console\Commands;
 
+use App\Traits\GuestsTrait;
 use App\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Password;
 
 class NewGuest extends Command
 {
+    use GuestsTrait;
     /**
      * The name and signature of the console command.
      *
@@ -38,20 +40,6 @@ class NewGuest extends Command
         $this->tokens = Password::getRepository();
     }
 
-    public function createNewUser($name, $email)
-    {
-        $this->line("Create new user $name: $email");
-        $user = new User();
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = hash('md2', $email);
-        $user->save();
-
-        $user->sendPasswordResetNotification(
-            $this->tokens->create($user)
-        );
-    }
-
     /**
      * Execute the console command.
      *
@@ -61,7 +49,7 @@ class NewGuest extends Command
     {
         $user = User::where(['email' => $this->argument('email')])->first();
         if (empty($user)) {
-            $this->createNewUser($this->argument('name'), $this->argument('email'));
+            $this->createNewUser($this->argument('name'), $this->argument('email'), $this->tokens);
         } else {
             $this->line("A user with that email address already exists");
         }
