@@ -45,7 +45,7 @@ trait  GuestsTrait
             if ($accountCreated != "No") {
                 $rsvp = $user->rsvp == false ? "Not Coming" : "Yes";
                 $list[$id][] = "RSVP: ".$rsvp;
-                if ($rsvp) {
+                if ($rsvp == "Yes") {
                     $plus1 = $user->partner == true ? "Yes" : "No";
                     $list[$id][] = "PlusOne? ".$plus1;
                 }
