@@ -30,6 +30,31 @@ trait  GuestsTrait
         $user->sendPasswordResetNotification($tokens->create($user));
     }
 
+    public function allInvitedStatus()
+    {
+        $list = [];
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $id = $user->id;
+            $name = $user->name;
+            $email = $user->email;
+            $accountCreated = $user->RSVP == NULL ? "No" : "Yes";
+            $list[$id][] = "$name ($email):";
+            $list[$id][] = "Account Created? ". $accountCreated;
+            if ($accountCreated != "No") {
+                $rsvp = $user->RSVP == false ? "Not Coming" : "Yes";
+                $list[$id][] = "RSVP: ".$rsvp;
+                if ($rsvp) {
+                    $plus1 = $user->partner == true ? "Yes" : "No";
+                    $list[$id][] = "PlusOne? ".$plus1;
+                }
+            }
+        }
+
+        return $list;
+    }
+
     public function currentGuestList()
     {
         $list = [];

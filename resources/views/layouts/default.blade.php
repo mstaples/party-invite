@@ -26,8 +26,6 @@
 			<!-- Header -->
 				<header id="header" class="alt">
 					<h1 id="logo"><a href="{{ route('index') }}">Oldfest 2018</a></h1>
-					<nav id="nav">
-					</nav>
 				</header>
 
 			@yield('body')
