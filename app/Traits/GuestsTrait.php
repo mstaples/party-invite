@@ -39,11 +39,11 @@ trait  GuestsTrait
             $id = $user->id;
             $name = $user->name;
             $email = $user->email;
-            $accountCreated = $user->RSVP == NULL ? "No" : "Yes";
+            $accountCreated = $user->rsvp === NULL ? "No" : "Yes";
             $list[$id][] = "$name ($email):";
             $list[$id][] = "Account Created? ". $accountCreated;
             if ($accountCreated != "No") {
-                $rsvp = $user->RSVP == false ? "Not Coming" : "Yes";
+                $rsvp = $user->rsvp == false ? "Not Coming" : "Yes";
                 $list[$id][] = "RSVP: ".$rsvp;
                 if ($rsvp) {
                     $plus1 = $user->partner == true ? "Yes" : "No";
