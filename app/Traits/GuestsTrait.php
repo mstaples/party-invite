@@ -88,6 +88,21 @@ trait  GuestsTrait
         return $list;
     }
 
+    public function resendGuestInvite($email, TokenRepositoryInterface $tokens)
+    {
+        $user = User::where('email', $email)->where('created_at', '=', DB::raw('updated_at'))->first();
+        if ($user == NULL) {
+            return "This guest has created their account.";
+        }
+
+        $message = "Sending a reminder invite to ". $user->name;
+        $user->sendInvitation(
+            $tokens->create($user)
+        );
+
+        return $message;
+    }
+
     public function resendGuestsInvites(TokenRepositoryInterface $tokens)
     {
         $users = User::where('created_at', '=', DB::raw('updated_at'))->get();
